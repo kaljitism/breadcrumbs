@@ -52,10 +52,18 @@ class _NewBreadCrumbWidgetState extends State<NewBreadCrumbWidget> {
             const SizedBox(height: 20),
             TextButton(
               onPressed: () {
-                context
-                    .read<BreadCrumbProvider>()
-                    .add(BreadCrumb(name: controller.text, isActive: false));
-                Navigator.pop(context);
+                if (controller.text.isNotEmpty) {
+                  context
+                      .read<BreadCrumbProvider>()
+                      .add(BreadCrumb(name: controller.text, isActive: false));
+                  Navigator.pop(context);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please write the BreadCrumb'),
+                    ),
+                  );
+                }
               },
               child: const Text('Add BreadCrumb'),
             ),
